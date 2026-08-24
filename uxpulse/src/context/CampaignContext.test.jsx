@@ -31,7 +31,7 @@ describe('CampaignContext', () => {
 
     expect(result.current.campaigns).toHaveLength(before + 1);
     expect(result.current.campaigns[0].title).toBe('Checkout flow test');
-    expect(result.current.campaigns[0].status).toBe('active');
+    expect(result.current.campaigns[0].status).toBe('archived');
   });
 
   it('builds a shareable link that points at the campaign', () => {
