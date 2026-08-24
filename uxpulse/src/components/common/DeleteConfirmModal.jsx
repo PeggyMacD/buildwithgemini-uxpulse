@@ -20,8 +20,11 @@ export const DeleteConfirmModal = ({ isOpen, campaign, responseCount = 0, onConf
       className="animate-fade-in"
       onClick={onCancel}
     >
-      <div 
-        className="glass-panel" 
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Delete campaign confirmation"
+        className="glass-panel"
         style={{
           width: '100%',
           maxWidth: '460px',
@@ -33,8 +36,9 @@ export const DeleteConfirmModal = ({ isOpen, campaign, responseCount = 0, onConf
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <button 
+        <button
           onClick={onCancel}
+          aria-label="Close dialog"
           style={{ position: 'absolute', right: '18px', top: '18px', background: 'transparent', border: 'none', color: 'var(--text-subtle)', cursor: 'pointer' }}
         >
           <X size={18} />
