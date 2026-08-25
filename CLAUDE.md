@@ -39,20 +39,40 @@ substitute — it uses the local `claude -p` login. If an API key ever gets appr
 | `make build` | production build into `uxpulse/dist`|
 | `make dev`   | local dev server                    |
 
-## Deploying a preview
+## Deploying
 
-Surge is blocked on this network. Previews go to GitHub Pages instead. The site is served
-from a subpath, so the base path must be passed at build time or assets 404:
+Automatic. Merging to `main` runs `.github/workflows/deploy.yml`, which builds and
+publishes to GitHub Pages. Do not deploy by hand.
 
-```bash
-cd uxpulse && npx vite build --base=/buildwithgemini-uxpulse/
-```
+Live at https://peggymacd.github.io/buildwithgemini-uxpulse/
 
-Then publish `uxpulse/dist/` to the `gh-pages` branch. Live at
-https://peggymacd.github.io/buildwithgemini-uxpulse/
+Two things to know if a deploy ever looks wrong:
+
+- **The site is served from a subpath**, so the build passes
+  `--base=/buildwithgemini-uxpulse/`. Without it every asset 404s and you get a blank
+  white page that still returns HTTP 200. When verifying a deploy, check that a JS asset
+  loads, not just the page.
+- Pages is in **workflow mode** (built by Actions). There is no `gh-pages` branch; it was
+  deleted. Don't recreate one.
+
+Surge, the host the course exercise uses, is blocked on this network — that's why this is
+GitHub Pages.
+
+To redeploy without a code change: Actions tab → "Deploy to GitHub Pages" → Run workflow.
+
+## Branch protection
+
+`main` is protected by the "Protect Main" ruleset. You **cannot** push to `main` — every
+change needs a branch and a pull request, and the `check` status check must be green
+before it will merge. Force pushes and deletion are blocked.
+
+Only the `check` job (from `ci.yml`) is a required check. `build` and `deploy` come from
+`deploy.yml`, which runs only on `main`, so requiring them would deadlock every PR.
 
 ## Conventions
 
 - Tests live next to the code they test (`*.test.jsx`).
 - Test what a person would actually do with the thing, not what color it is.
 - Keep a pull request to one concern.
+- Stage files by name. `git commit -a` sweeps in unrelated modified files from other
+  folders in this repo — it has already caused one accidental commit of `test-agent/`.
