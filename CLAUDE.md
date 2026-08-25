@@ -9,15 +9,22 @@ The app lives in the `uxpulse/` subdirectory, not the repo root.
 
 ## Before opening any PR
 
-Run both and get them green:
+Run this and get it green:
 
 ```bash
-make lint
-make test
+make pr        # lint + test + generate review.md
 ```
+
+Then read `review.md`, act on anything real in it, and post it with `make review-post`
+once the PR exists.
 
 Do not open a pull request with a red check. If a test fails, fix the code or fix the
 test — do not delete the test to make the run pass.
+
+The Claude GitHub App is not available here: this account is org-managed and cannot
+provision an Anthropic API key, so automatic per-PR review is off. `make review` is the
+substitute — it uses the local `claude -p` login. If an API key ever gets approved, run
+`/install-github-app` and this becomes automatic.
 
 ## Commands
 
@@ -26,6 +33,9 @@ test — do not delete the test to make the run pass.
 | `make lint`  | oxlint over the app                 |
 | `make test`  | vitest, single run                  |
 | `make check` | lint + test                         |
+| `make review`| AI review of this branch → review.md|
+| `make review-post` | post review.md on the PR      |
+| `make pr`    | check + review, before opening a PR  |
 | `make build` | production build into `uxpulse/dist`|
 | `make dev`   | local dev server                    |
 

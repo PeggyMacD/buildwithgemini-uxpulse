@@ -8,3 +8,7 @@ context.md
 node_modules/
 # package-lock.json is committed on purpose: CI needs the exact versions we tested.
 .video_tmp/
+
+# Generated locally by make review, never committed
+review.md
+pr.diff
