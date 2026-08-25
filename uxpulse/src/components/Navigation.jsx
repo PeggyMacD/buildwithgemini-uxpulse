@@ -5,13 +5,10 @@ import {
   Plus, 
   Sun, 
   Moon, 
-  User, 
-  LogOut, 
-  ExternalLink, 
+  LogOut,
+  ExternalLink,
   Menu,
-  ChevronDown,
-  Sparkles,
-  CheckCircle2
+  ChevronDown
 } from 'lucide-react';
 
 export const Navigation = ({ onToggleSidebar, onCreateNew }) => {
